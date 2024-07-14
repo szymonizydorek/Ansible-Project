@@ -77,3 +77,4 @@
       debug:
         msg: "{{ ntp_status.stdout }}"
       when: ansible_distribution == "Ubuntu"
+
