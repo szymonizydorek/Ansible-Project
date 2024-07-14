@@ -7,7 +7,6 @@
       fetch:
         src: /etc/chrony.conf
         dest: /ubuntu/ansible_project/templates
-        mode: '0755'
       register: fetch_result
       when: ansible_distribution == "CentOS"
 
