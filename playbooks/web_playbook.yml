@@ -1,0 +1,61 @@
+#Webservers Provisioning playbook
+---
+- name: Webserver Setup
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Install httpd on CentOS
+      yum:
+        name: httpd
+        state: present
+      when: ansible_distribution == "CentOS"
+
+    - name: Start httpd on CentOS
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+      when: ansible_distribution == "CentOS"
+
+    - name: Display httpd status
+      debug:
+        msg: "httpd is active and running."
+      when: ansible_distribution == "CentOS"
+
+    - name: Copy index.html
+      copy:
+        src: /root/ansible_project/file/index.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+      when: ansible_distribution == "CentOS"
+
+    - name: Install httpd on Ubuntu
+      apt:
+        name: apache2
+        state: present
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Start httpd on Ubuntu
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Display httpd status on Ubuntu
+      debug:
+        msg: "httpd is active and running."
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Copy index.html
+      copy:
+        src: /root/ansible_project/file/index.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+      when: ansible_distribution == "Ubuntu"

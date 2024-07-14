@@ -1,0 +1,6 @@
+#Main yaml
+---
+- import_playbook: web_playbook.yml
+- import_playbook: db_playbook.yml
+- import_playbook: ntp_playbook.yml
+- import_playbook: users_creation.yml
