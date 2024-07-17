@@ -1,0 +1,80 @@
+---
+- name: 
+  hosts: all
+  become: yes
+  tasks:
+    - name: Print OS name
+      debug:
+        var: ansible_distribution
+          
+    - name: Install packages on CentOS
+      yum:
+        name: "{{item}}"
+        state: present
+      when:
+        - ansible_distribution == "CentOS"
+        - ansible_distribution_major_version == "9"
+      loop:
+        - chrony
+        - wget
+        - git
+        - zip 
+        - unzip
+      loop_control:
+        label: "Installing {{ item }}"
+
+    - name: Install package agent on Ubuntu
+      apt:
+        name: "{{item}}"
+        state: present
+        update_cache: yes
+      when:
+        - ansible_distribution == "Ubuntu"
+        - ansible_distribution_version == "24.04"
+      loop:
+        - ntp
+        - wget
+        - git
+        - zip 
+        - unzip
+      loop_control:
+        label: "Installing {{ item }}"
+
+
+    - name: Start service on CentOS
+      service:
+        name: chronyd
+        state: started 
+        enabled: yes 
+      when: ansible_distribution == "CentOS"
+
+    
+    - name: Start service on Ubuntu
+      service:
+        name: ntp
+        state: started 
+        enabled: yes 
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Get chronyd service status
+      shell:
+        cmd: systemctl status chronyd | grep -A 2 "chronyd.service"
+      register: chronyd_status
+      when: ansible_distribution == "CentOS"
+      
+    - name: Display chronyd service status
+      debug:
+        msg: "{{ chronyd_status.stdout }}"
+      when: ansible_distribution == "CentOS"
+    
+    - name: Get NTP service status on Ubuntu
+      shell:
+        cmd: systemctl status ntp | grep -A 2 "ntpsec.service"
+      register: ntp_status
+      when: ansible_distribution == "Ubuntu"
+      
+    - name: Display NTP service status on Ubuntu
+      debug:
+        msg: "{{ ntp_status.stdout }}"
+      when: ansible_distribution == "Ubuntu"
+

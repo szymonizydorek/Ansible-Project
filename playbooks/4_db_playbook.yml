@@ -1,0 +1,55 @@
+---
+- name: DBserver Setup
+  hosts: dbserver
+  become: yes
+  vars_files:
+    #    - /ansible_project/group_vars/all  # Include group_vars/all to load variables
+    - /home/ubuntu/ansible_project/inventory/group_vars/all
+       # vars:   #variables to defined in playbook. Main source is group/vars
+       #  dbname: electric
+       # dbuser: current
+       # dbpass: tesla
+
+  tasks:
+    - name: Debug database variables
+      debug:
+        msg: "Database name is {{ dbname }}, Database user is {{ dbuser }}, Database password is {{ dbpass }}"
+
+    - name: Install MariaDB server
+      yum:
+        name: mariadb-server
+        state: present
+
+    - name: Install Python module for MySQL
+      yum:
+        name: python3-PyMySQL
+        state: present
+
+    - name: Start service
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+
+    - name: Create a new database with name 'accounts'
+      mysql_db:
+        name: "{{ dbname }}"
+        state: present
+        login_unix_socket: /var/lib/mysql/mysql.sock
+
+    - name: Create database user with name '{{ dbuser }}' and password with all database privileges
+      community.mysql.mysql_user:
+        name: "{{ dbuser }}"
+        password: "{{ dbpass }}"
+        priv: '*.*:ALL'
+        state: present
+        login_unix_socket: /var/lib/mysql/mysql.sock
+        column_case_sensitive: false
+
+      register: dbout
+
+    - name: Print dbout variable
+      debug:
+        var: dbout
+
+

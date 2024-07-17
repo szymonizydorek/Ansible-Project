@@ -1,0 +1,19 @@
+#Main yaml
+---
+- import_playbook: 2_print_facts.yml
+- import_playbook: 3_web_playbook.yml
+- import_playbook: 4_db_playbook.yml
+- import_playbook: 5_packages.yml
+- import_playbook: 6_time_synchronization.yml
+- import_playbook: 7_users_creation.yml
+
+- name: Provisioning servers
+  hosts: all
+  become: yes
+  tasks:  
+    - name: MOTD File change
+      copy: 
+        content: '#THIS SERVER IS MANAGED BY ANSIBLE - NO MANUAL CHANGES#'
+        dest: /etc/motd
+    
+  

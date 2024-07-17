@@ -1,0 +1,18 @@
+---
+- name: Fetching chrony.conf file from web01
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copy Chrony.conf file from CentOS to templates
+      fetch:
+        src: /etc/chrony.conf
+        dest: /ubuntu/ansible_project/templates
+      register: fetch_result
+      when: ansible_distribution == "CentOS"
+
+    - name: Copy ntp.conf file from Ubuntu to templates
+      fetch:
+        src: /etc/ntpsec/ntp.conf
+        dest: /root/ansible_project/templates
+      register: fetch_result
+      when: ansible_distribution == "Ubuntu"

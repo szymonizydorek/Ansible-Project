@@ -1,0 +1,28 @@
+#Main yaml
+---
+- name: 
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: WebDevOps Group Creation
+      group:
+        name: WebDevOps
+        state: present
+        gid: 1750
+
+    - name: Add 2 new userss
+      user:
+        name: "{{ item }}"
+        groups: "WebDevOps"
+      loop:
+         - Webserver_User_1
+         - Webserver_User_2  
+      register: user_creation_results
+
+
+    - name: Debug user creation results
+      debug:
+        msg: "User '{{ item.item }}' creation status: {{ item }}"
+      loop: "{{ user_creation_results.results }}"
+      when: item.changed
