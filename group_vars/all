@@ -1,7 +1,0 @@
----
-dbname: sky
-dbuser: pilot
-dbpass: aircraft2
-
-USRNM: commonuser
-COMM: variable from groupvars_all file

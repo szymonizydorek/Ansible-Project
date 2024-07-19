@@ -6,27 +6,27 @@
     - name: Copy Chrony.conf file from CentOS to templates
       fetch:
         src: /etc/chrony.conf
-        dest: /home/ubuntu/ansible_project/templates/chrony.conf
+        dest: /home/ubuntu/ansible_project/file
       register: fetch_result
       when: ansible_distribution == "CentOS"
 
     - name: Copy ntp.conf file from Ubuntu to templates
       fetch:
         src: /etc/ntpsec/ntp.conf
-        dest: /home/ubuntu/ansible_project/templates/ntp.conf
+        dest: /home/ubuntu/ansible_project/templates/file
       register: fetch_result
       when: ansible_distribution == "Ubuntu"
 
     - name: Deploy ntp agent conf on centos
       template:
-        src: /home/ubuntu/ansible_project/templates/{{ inventory_hostname }}_chrony.conf/etc/chrony.conf
+        src: templates/ntpconf_centos
         dest: /etc/chrony.conf
         backup: yes
       when: ansible_distribution == "CentOS"
 
     - name: Deploy ntp agent conf on Ubuntu
       template:
-        src: /home/ubuntu/ansible_project/templates/{{ inventory_hostname }}_ntp.conf/etc/ntp.conf
+        src: templates/ntpconf_ubuntu
         dest: /etc/ntp.conf
         backup: yes
       when: ansible_distribution == "Ubuntu"

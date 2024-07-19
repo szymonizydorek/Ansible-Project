@@ -1,0 +1,12 @@
+---
+dbname: sky
+dbuser: pilot
+dbpass: aircraft2
+
+USRNM: commonuser
+COMM: variable from groupvars_all file
+
+ntp0: server 0.north-america.pool.ntp.org
+ntp1: server 1.north-america.pool.ntp.org
+ntp2: server 2.north-america.pool.ntp.org
+ntp3: server 3.north-america.pool.ntp.org

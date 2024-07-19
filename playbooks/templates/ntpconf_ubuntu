@@ -31,10 +31,11 @@ tos minclock 4 minsane 3
 # Use servers from the NTP Pool Project. Approved by Ubuntu Technical Board
 # on 2011-02-08 (LP: #104525). See https://www.pool.ntp.org/join.html for
 # more information.
-pool 0.ubuntu.pool.ntp.org iburst
-pool 1.ubuntu.pool.ntp.org iburst
-pool 2.ubuntu.pool.ntp.org iburst
-pool 3.ubuntu.pool.ntp.org iburst
+pool "{{ntp0}}" iburst
+pool "{{ntp1}}" iburst
+pool "{{ntp2}}" iburst
+pool "{{ntp3}}" iburst
+#SIMON'S COMMENT
 
 # Use Ubuntu's ntp server as a fallback.
 server ntp.ubuntu.com
