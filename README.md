@@ -1,6 +1,3 @@
-![Description](https://github.com/szymonizydorek/Ansible-Project/blob/main/Screenshot%202024-07-17%20at%2020.19.03.png)
-
-
 # Linux Servers Automation with Ansible
 
 In the project, we will look over the most important Ansible functionalities to provision services, users, ssh authentication to three Linux servers. 
