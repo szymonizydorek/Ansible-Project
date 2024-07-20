@@ -2,10 +2,8 @@
 - name: 
   hosts: all
   become: yes
+  gather_facts: yes
   tasks:
-    - name: Print OS name
-      debug:
-        var: ansible_distribution
           
     - name: Install packages on CentOS
       yum:

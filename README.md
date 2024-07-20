@@ -1,14 +1,22 @@
 # Linux Servers Automation with Ansible
 
-In the project, we will look over the most important Ansible functionalities to provision services, users, ssh authentication to three Linux servers. 
-
+In this project, we will explore the most important Ansible functionalities to provision services, manage users, and configure SSH authentication across three Linux servers.
 ## Prerequisities 
+- **Control Machine**: A Linux server with Ansible installed.
+- **Web Server 1**: Ubuntu 20.04 Server.
+- **Web Server 2**: CentOS.
+- **Database Server**: CentOS.
+- **Ansible Documentation**: [Ansible Documentation](https://www.ansible.com/)
 
-- ControlMachine - Linux server with Ansible Installed
-- WebServer_1 - Ubuntu 20.04 Server
-- WebServer_2 - CentOS
-- DbDerver - CentOS
-- Ansible Documentation: [Ansible Documentation](https://www.ansible.com/])
+
+## Project Requirements
+
+- Install HTTP service.
+- Install MariaDB service.
+- Create admin users.
+- Configure NTP server in the Europe pool.
+- Configure Chrony service in the CN pool.
+- Restart NTP service whenever there is a change in the configuration.
 
 ## Installation and Cofiguration
 
