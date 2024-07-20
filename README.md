@@ -1,3 +1,4 @@
+![Ansible Logo](file/pics/ansible.logo)
 # Linux Servers Automation with Ansible
 
 In this project, we will explore the most important Ansible functionalities to provision services, manage users, and configure SSH authentication across three Linux servers.
