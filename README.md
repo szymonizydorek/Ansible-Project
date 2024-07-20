@@ -19,6 +19,31 @@ In this project, we will explore the most important Ansible functionalities to p
 - Configure Chrony service in the CN pool.
 - Restart NTP service whenever there is a change in the configuration.
 
+## Steps
+
+1. **Setting Up the Control Machine**:
+    - Ensure Ansible is installed on the control machine.
+    - Verify SSH access to all target servers from the control machine.
+
+2. **Inventory Setup**:
+    - Define the inventory file with details of the target servers.
+
+3. **Playbook Creation**:
+    - Create playbooks for each task:
+        - Installing HTTP and MariaDB services.
+        - Creating admin users.
+        - Configuring NTP and Chrony.
+        - Ensuring services are restarted after configuration changes.
+
+4. **Variables and Templates**:
+    - Define variables in `group_vars/all`.
+    - Create Jinja2 templates for configuration files.
+
+5. **Executing Playbooks**:
+    - Run the playbooks from the control machine.
+    - Verify the changes on the target servers.
+
+
 ## Installation and Cofiguration
 
 1. Install Ansible on your Control Machine
