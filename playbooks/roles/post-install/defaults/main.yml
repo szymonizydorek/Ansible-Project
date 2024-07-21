@@ -1,2 +1,19 @@
 ---
-# defaults file for post-install
+dbname: sky
+dbuser: pilot
+dbpass: aircraft2
+
+USRNM: commonuser
+COMM: variable from groupvars_all file
+
+ntp0: server 0.asia.pool.ntp.org
+ntp1: server 1.asia.pool.ntp.org
+ntp2: server 2.asia.pool.ntp.org
+ntp3: server 3.asia.pool.ntp.org
+
+chrony0: server 0.in.pool.ntp.org
+chrony1: server 1.in.pool.ntp.org
+chrony2: server 2.in.pool.ntp.org
+chrony3: server 3.in.pool.ntp.org
+
+mydir: /opt/dir2
