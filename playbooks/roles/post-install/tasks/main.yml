@@ -1,0 +1,74 @@
+---
+- name: Start service on CentOS
+  service:
+    name: chronyd
+    state: started
+    enabled: yes
+  when: ansible_distribution == "CentOS"
+
+- name: Start service on Ubuntu
+  service:
+    name: ntp
+    state: started
+    enabled: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: Get chronyd service status
+  shell:
+    cmd: systemctl status chronyd | grep -A 2 "chronyd.service"
+  register: chronyd_status
+  when: ansible_distribution == "CentOS"
+
+- name: Display chronyd service status
+  debug:
+    msg: "{{ chronyd_status.stdout }}"
+  when: ansible_distribution == "CentOS"
+
+- name: Get NTP service status on Ubuntu
+  shell:
+    cmd: systemctl status ntp | grep -A 2 "ntpsec.service"
+  register: ntp_status
+  when: ansible_distribution == "Ubuntu"
+
+- name: Display NTP service status on Ubuntu
+  debug:
+    msg: "{{ ntp_status.stdout }}"
+  when: ansible_distribution == "Ubuntu"
+
+
+    ######### CHRONY CONFIGURATION ############
+
+    
+- name: Copy Chrony.conf file from CentOS to templates
+  fetch:
+    src: /etc/chrony.conf
+    dest: /home/ubuntu/ansible_project/file
+  register: fetch_result
+  when: ansible_distribution == "CentOS"
+
+- name: Copy ntp.conf file from Ubuntu to templates
+  fetch:
+    src: /etc/ntpsec/ntp.conf
+    dest: /home/ubuntu/ansible_project/templates/file
+  register: fetch_result
+  when: ansible_distribution == "Ubuntu"
+
+- name: Deploy ntp agent conf on CentOS
+  template:
+    src: ntpconf_centos.j2
+    dest: /etc/chrony.conf
+    backup: yes
+  when: ansible_distribution == "CentOS"
+  notify:
+    - Restart Chrony on CentOS
+
+- name: Deploy ntp agent conf on Ubuntu
+  template:
+    src: ntpconf_ubuntu.j2
+    dest: /etc/ntp.conf
+    backup: yes
+  when: ansible_distribution == "Ubuntu"
+  notify:
+    - Restart NTP on ubuntu
+
+# tasks file for post-install

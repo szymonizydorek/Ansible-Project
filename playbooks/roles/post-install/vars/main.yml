@@ -15,3 +15,5 @@ chrony0: server 0.cn.pool.ntp.org
 chrony1: server 1.cn.pool.ntp.org
 chrony2: server 2.cn.pool.ntp.org
 chrony3: server 3.cn.pool.ntp.org
+
+mydir: /opt/dir2
